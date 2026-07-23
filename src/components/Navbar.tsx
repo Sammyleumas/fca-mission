@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, Phone, Mail, FileText } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Phone, Mail } from 'lucide-react';
 import { Logo } from './Logo';
 import { ACADEMY_INFO } from '../data/academyData';
-import { useAuth } from '../context/AuthContext';
-import { UserApplicationsModal } from './UserApplicationsModal';
 
 interface NavbarProps {
   onNavigate: (sectionId: string) => void;
@@ -13,8 +11,6 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isPortalOpen, setIsPortalOpen] = useState(false);
-  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,11 +37,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => 
 
   return (
     <>
-      <UserApplicationsModal 
-        isOpen={isPortalOpen} 
-        onClose={() => setIsPortalOpen(false)} 
-      />
-
       {/* Top Banner with Quick Contact Info */}
       <div className="bg-[#0D47A1] text-white text-xs py-2 px-4 font-medium hidden md:block border-b border-blue-900/40">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -98,21 +89,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => 
               })}
             </nav>
 
-            {/* CTA Button & Portal Button */}
+            {/* CTA Button */}
             <div className="hidden lg:flex items-center gap-3">
-              <button
-                onClick={() => setIsPortalOpen(true)}
-                className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-100 border border-slate-200/80 text-slate-800 text-xs font-bold hover:bg-slate-200 transition-all cursor-pointer"
-                title="Student Applications Portal"
-              >
-                {user && user.photoURL ? (
-                  <img src={user.photoURL} alt={user.displayName || 'User'} className="w-5 h-5 rounded-full" />
-                ) : (
-                  <FileText className="w-4 h-4 text-[#0D47A1]" />
-                )}
-                <span>{user ? 'My Portal' : 'Student Portal'}</span>
-              </button>
-
               <button
                 onClick={() => handleNavClick('contact')}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#0D47A1] to-[#1565C0] text-white text-xs font-bold shadow-md shadow-blue-900/20 hover:opacity-95 hover:shadow-lg transition-all cursor-pointer"
@@ -124,14 +102,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => 
 
             {/* Mobile Hamburger Button */}
             <div className="lg:hidden flex items-center gap-2">
-              <button
-                onClick={() => setIsPortalOpen(true)}
-                className="p-2.5 rounded-xl bg-blue-50 text-[#0D47A1] border border-blue-200 font-bold text-xs flex items-center gap-1.5"
-              >
-                <FileText className="w-4 h-4" />
-                <span>Portal</span>
-              </button>
-
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="p-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-slate-200 transition-colors focus:outline-none"
@@ -166,13 +136,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => 
             </div>
 
             <div className="pt-3 border-t border-slate-100 flex flex-col gap-2.5">
-              <button
-                onClick={() => { setIsMobileMenuOpen(false); setIsPortalOpen(true); }}
-                className="w-full text-center py-3 rounded-xl border border-slate-300 bg-slate-50 text-slate-800 font-bold text-xs flex items-center justify-center gap-2"
-              >
-                <FileText className="w-4 h-4 text-[#0D47A1]" />
-                <span>Student Applications Portal</span>
-              </button>
               <button
                 onClick={() => handleNavClick('contact')}
                 className="w-full text-center py-3 rounded-xl bg-[#0D47A1] text-white font-bold text-xs shadow-md shadow-blue-900/20"
