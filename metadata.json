@@ -1,0 +1,6 @@
+{
+  "name": "Fusion Connect Academy",
+  "description": "Official website for Fusion Connect Academy — Where Technology Meets Creativity.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
